@@ -17,15 +17,15 @@ public class Promotion {
         }
     }
 
-    void changePromotionToyWeight(Toy toy, int weight){
+    public void changePromotionToyWeight(Toy toy, int weight){
         promotionList.get(toy).setWeight(weight);
     }
 
-    int getToyWeight(Toy toy){
+    public int getToyWeight(Toy toy){
         return promotionList.get(toy).getWeight();
     }
 
-    Toy processPromotion(){
+    public Toy processPromotion(){
         List<Toy> promotionStore = new ArrayList<>();
         promotionList.forEach((key,value) -> {
             for (int i = 0; i < value.getWeight(); i++){
@@ -38,5 +38,9 @@ public class Promotion {
         promotionList.get(prize).decrementQuantity(1);
         if (promotionList.get(prize).getQuantity() == 0) promotionList.remove(prize);
         return prize;
+    }
+
+    public int getToysQty(){
+        return promotionList.size();
     }
 }

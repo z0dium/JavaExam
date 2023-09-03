@@ -1,5 +1,6 @@
 package com.pamihnenkov.ToysStore;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,9 +8,12 @@ public class ToysStore {
     private final Map<Toy,Integer> store;
     private final Promotion promotion;
 
+    private final FileHandler fileHandler;
+
     public ToysStore() {
         this.store = new HashMap<>();
-        promotion = new Promotion();
+        this.promotion = new Promotion();
+        this.fileHandler = new FileHandler();
     }
 
     public void acceptToys(Map<Toy,Integer> income){
@@ -28,7 +32,20 @@ public class ToysStore {
         promotion.addToy(toy, qty);
     }
 
-    public Toy processPromotion(){
+    public Toy processPromotion(String owner){
+        if (promotion.getToysQty() == 0) {
+            throw new RuntimeException("Игрушки закончились");
+        }
+        Toy result = promotion.processPromotion();
+        try{
+            fileHandler.saveResult(result,owner);
+        } catch (IOException ex){
+            System.out.println("Нет доступа к файлу с результатами");
+        }
+        return result;
+    }
 
+    public void changeToyPromotionWeight(Toy toy, Integer weight){
+        promotion.changePromotionToyWeight(toy,weight);
     }
 }

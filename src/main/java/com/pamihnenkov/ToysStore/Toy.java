@@ -2,9 +2,9 @@ package com.pamihnenkov.ToysStore;
 
 public class Toy {
     private final String name;
-    private final String id;
+    private final Integer id;
 
-    public Toy(String name, String id) {
+    public Toy(Integer id, String name) {
         this.name = name;
         this.id = id;
     }
@@ -13,8 +13,15 @@ public class Toy {
         return name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "Toy{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
